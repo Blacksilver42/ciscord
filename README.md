@@ -10,4 +10,5 @@ C discord library because why not.
 
 ## Linking
 
-	gcc myprogram.c -o myprogram -l/path/to/ciscord/ciscord.o
+	gcc -c myprogram.c
+	gcc /path/to/ciscord.o myprogram.o
