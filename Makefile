@@ -1,6 +1,6 @@
 : ciscord.o
 
-dev: ciscord-dev
+dev: ciscord-dev.o
 
 exbot:
 	gcc exbot/*.c -o exbot 
