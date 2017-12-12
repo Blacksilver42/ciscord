@@ -6,8 +6,7 @@
 
 
 
-typedef (const char *) msg_t;
-typedef void (*listen_f)(const recv_t * recv); // function pointer like ``void f(char * msg)''
+typedef const char * msg_t;
 
 
 
@@ -41,7 +40,7 @@ typedef struct {
 		int r,g,b;
 	} color;
 	char * content;
-}
+} embed_t;
 
 
 // send context
@@ -69,6 +68,7 @@ typedef struct {
 
 
 
+typedef void (*listen_f)(const recv_t * recv); // function pointer like ``void f(const recv_t * recv)''
 
 
 #endif /* ifndef __CISCORD_TYPEDEFS_H__*/
