@@ -8,7 +8,7 @@ v0.0001 NONFUNCTIONAL
 	
     git clone https://github.com/Blacksilver42/ciscord
     cd ciscord
-    make build
+    make ciscord
     make install
 
 ## Include
