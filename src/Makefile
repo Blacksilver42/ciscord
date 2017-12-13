@@ -1,20 +1,20 @@
 .PHONY: dev build clean
 
-objs = helpers.o msg.o
+OBJS = helpers.o msg.o init.o exbot.o
 
-build: ciscord.o
+CURLLINK = -L/usr/lib/x86_64-linux-gnu -lcurl
+LDFLAGS = $(CURLLINK)
+
+build: exbot
 
 dev: CFLAGS=-g
 dev: build
 
-ciscord.o: $(objs)
-	ld    -r -o ciscord.o $(objs)
 
-
-
-helpers.o:	*.h  helpers.c
-msg.o:		*.h  msg.c
+exbot: $(OBJS)
+	gcc $(OBJS) -o exbot $(CFLAGS) $(LDFLAGS)
 
 
 clean:
 	rm -f *.o
+

@@ -36,6 +36,7 @@
 ///////////////////////////////////////////////// FUNCTIONS
 
 
+void		Dinit(void);
 
 guild_t *	Dfindguild_name(guild_t * buf, const char * name);
 guild_t *	Dfindguild_id(guild_t * buf, const char * id);
