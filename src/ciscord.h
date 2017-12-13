@@ -1,6 +1,6 @@
 #ifdef __CISCORD_H__
 
-#warn "ciscord.h included multiple times. DON'T PANIC -- we used an include gaurd"
+//#warn "ciscord.h included multiple times. DON'T PANIC -- we used an include gaurd"
 
 #else
 
@@ -12,7 +12,8 @@
 #define MAXLSTN 32
 #endif
 
-
+#define CDIS_VSTRING "v0.01"
+#define CDIS_VNOTE   "(NON-FUNCTIONAL)"
 
 ///////////////////////////////////////////////// <INCLUDES>
 
@@ -37,6 +38,7 @@
 
 
 void		Dinit(void);
+char *		Dfind_key(int argc, char * argv[]);
 
 guild_t *	Dfindguild_name(guild_t * buf, const char * name);
 guild_t *	Dfindguild_id(guild_t * buf, const char * id);

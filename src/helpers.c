@@ -1,5 +1,5 @@
 #include "ciscord.h"
-
+#include "cdis_internal.h"
 
 char * Dfind_key(int argc, char * argv[])
 	/**
@@ -18,28 +18,51 @@ char * Dfind_key(int argc, char * argv[])
 			continue;
 		}
 		if(next_is_key == 1){
-			printf("key: %s", argv[i]);
+			cdis_log_info("Command-line key: ``%s''\n", argv[i]);
 			return argv[i];
 		}
 	}
 
 	// Nothing in the command line args? Darn.
 	// Okay, search the wd for a key file.
-	FILE * f = popen("ls -a -1 | grep -i key | head -n 1", "r");
-	if(!f){
+	FILE * pipe = popen("ls -a -1 | grep -i key | head -n 1", "r");
+	
+	if(pipe == NULL){
 		// couldn't open :(
-		fprintf(stderr, "[WARN] Failed to open pipe to search for key file.  :(\n");
-		fprintf(stderr, "[WARN] This probably means:\n");
-		fprintf(stderr, "       * You're out of memory          ([DIETY] help you)\n");
-		fprintf(stderr, "       * You don't have sh or bash     ([DIETY] help you)\n");
-		fprintf(stderr, "       * Your os doesn't support pipes ([DIETY] help you)\n");
+		cdis_log_warn("Failed to open pipe to search for key file.  :(\n");
+		pclose(pipe);
+		return NULL;
 	}
 	
-	char buf[256];
+	char fname[256];
+	fscanf(pipe, "%s", fname);
+	pclose(pipe);
 	
-	fscanf(f, "%s", buf);
+	if(access(fname,F_OK) == -1){
+		cdis_log_warn("No keyfile found.\n");
+		return NULL;
+	}
+
+	if(access(fname,R_OK) == -1){
+		cdis_log_warn("Couldn't open \e[4m%s\e[0m for reading, permissions error.\n",fname);
+		cdis_log_warn("Try \e[1mchmod +r %s\e[0m\n",fname);
+		return NULL;
+	}
 	
-	fprintf(stderr, "%s",buf);
+	FILE * f = fopen(fname, "r");
+
+	cdis_log_info("Keyfile: \e[1m%s\e[0m\n",fname);
 	
-	pclose(f);
+	
+	if(f == NULL){
+		cdis_log_warn("Failed to open keyfile for reading.\n");
+		cdis_log_warn("Since I checked if you can open it already, this probably means you're out of memory.\n");
+		return NULL;
+	}
+	
+	char key[256];
+	
+	fscanf(f, "%s", key);
+	
+	cdis_log_info("Key: \e[1m%s\e[0m\n",key);
 }
