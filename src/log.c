@@ -1,5 +1,5 @@
-#include "ciscord.h"
-#include "cdis_internal.h"
+#include <ciscord/ciscord.h>
+#include <ciscord/internal.h>
 
 
 void cdis_log_info(const char * format, ...){

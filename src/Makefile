@@ -1,13 +1,14 @@
 .PHONY: dev build clean
 
-OBJS = helpers.o msg.o init.o log.o exbot.o
+OBJS = helpers.o log.o control.o find.o send.o recv.o init.o exbot.o
 
 CURLLINK = -L/usr/lib/x86_64-linux-gnu -lcurl
-LDFLAGS = $(CURLLINK)
+LDFLAGS = $(CURLLINK) -ljsmn
+CFLAGS = -Wall 
 
 build: exbot
 
-dev: CFLAGS=-g
+dev: CFLAGS+=-g
 dev: build
 
 

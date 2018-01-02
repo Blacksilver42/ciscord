@@ -1,7 +1,8 @@
-#include "ciscord.h"
-#include "cdis_internal.h"
+#include <ciscord/ciscord.h>
+#include <ciscord/internal.h>
 
-char * Dfind_key(int argc, char * argv[])
+
+char * find_key(int argc, char * argv[])
 	/**
 	 * Search args for an API key passed with -k <KEY>.
 	 * If none found, searches current working dir for a file matching /key/i, and tries the first one.
@@ -18,7 +19,7 @@ char * Dfind_key(int argc, char * argv[])
 			continue;
 		}
 		if(next_is_key == 1){
-			cdis_log_info("Command-line key: ``%s''\n", argv[i]);
+			cdis_log_info("Key: \e[1m%s\e[0m\n", argv[i]);
 			return argv[i];
 		}
 	}
@@ -60,9 +61,44 @@ char * Dfind_key(int argc, char * argv[])
 		return NULL;
 	}
 	
-	char key[256];
+	char * key = malloc(CDIS_SNOWFLAKE_LEN);
 	
 	fscanf(f, "%s", key);
 	
 	cdis_log_info("Key: \e[1m%s\e[0m\n",key);
+	return key;
+}
+
+
+
+char * mention(user_t * usr, char * buf)
+	/* get mentionstring for user.
+	 * if buf is null, allocates some memory for you.
+	 */
+{
+	if(buf == NULL)
+		buf = calloc(64, sizeof(char));
+	
+	sprintf(buf, "@%s#%d",usr->name, usr->tag);
+	
+	return buf;
+}
+
+
+ctx_t *	makectx(ctx_t * buf, guild_t * guild, chan_t * chan){
+	if(buf == NULL){
+		buf = malloc(sizeof(ctx_t));
+		if(buf == NULL){
+			// shit. malloc failed.
+			cdis_log_darn("makectx(NULL, %x, %x): malloc() failed. (%s)",
+			guild, chan, strerror(errno));
+			return NULL;
+		}
+		cdis_log_warn("makectx(NULL, %x, %x): allocating \e[1mbuf\e[0m for you\n",
+			guild, chan);
+	}
+	buf->chan = chan;
+	buf->guild = guild;
+
+	return buf;
 }

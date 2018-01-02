@@ -2,13 +2,6 @@
 #define __CISCORD_TYPEDEFS_H__
 
 
-///////////////////////////////////////////////// SHORTHANDS
-
-
-
-typedef const char * msg_t;
-
-
 
 ///////////////////////////////////////////////// STRUCTS
 
@@ -17,21 +10,12 @@ typedef const char * msg_t;
 // holds the key and some other data.
 typedef struct {
 	char * key;
+	CURL *curl;
+	CURLcode lastcode;
+	char * botname;
+	char * user_agent;
+	char * auth_header;
 } ciscord_t;
-
-
-// guild (server)
-typedef struct {
-	char * name;
-	char * id;
-} guild_t;
-
-
-// channel
-typedef struct {
-	char * name;
-	char * id;
-} chan_t;
 
 
 // embedded thing
@@ -45,8 +29,8 @@ typedef struct {
 
 // send context
 typedef struct {
-	guild_t guild;
-	chan_t chan;
+	guild_t * guild;
+	chan_t * chan;
 } ctx_t;
 
 
@@ -55,6 +39,7 @@ typedef struct {
 	char * id;
 	char * nick;
 	char * name;
+	int tag;
 	bool isbot;
 } user_t;
 
