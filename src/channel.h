@@ -20,8 +20,8 @@ typedef struct {
 	char topic[CHANNEL_TOPIC_MAXLEN+1];
 	bool nsfw;
 	SNOWFLAKE last_message_id;
-	int bitrate;
-	int user_limit;
+	int bitrate; // voice only
+	int user_limit; // voice only
 	D_user_t * recipients;
 	char * icon;
 	SNOWFLAKE owner_id;
