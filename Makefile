@@ -19,3 +19,7 @@ doth: src/*.h
 	@else echo "Only root can do that."
 	@#Seriously, you can try; it won't work.
 	@exit 1; fi
+
+jsmn/jsmn.a:
+	git clone http://github.com/zserge/jsmn	
+	make -C jsmn/
