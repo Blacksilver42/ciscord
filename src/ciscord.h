@@ -1,4 +1,3 @@
-// vim: ts=4
 
 #ifdef __CISCORD_H__
 
@@ -52,46 +51,33 @@
  *****************************************************************************/
 
 
-CDIS		cdis_init(CDIS cdis);
-
-guild_t *	Dfind_guild_name(CDIS cdis,	guild_t * buf, const char * name);
-guild_t *	Dfind_guild_id(	CDIS cdis,	guild_t * buf, const char * id);
-
-chan_t *	Dfind_chan_name(	CDIS cdis,	chan_t * buf, const char * name);
-chan_t *	Dfind_chan_id(	CDIS cdis,	chan_t * buf, char * id);
+CDIS		ld_init(CDIS disC);
+char *		ld_find_key(int argc, char * argv[]);
+ctx_t *		ld_makectx(ctx_t * buf, guild_t * guild, chan_t * chan);
 
 
-// Various send-message commands ----------------------------------------------
-//		func		cdis		context,		user,		content
-int		Dsend(		CDIS cdis,	ctx_t * ctx,				DMSG msg );
-int		Dsendf(		CDIS cdis,	ctx_t * ctx,				const char * format, ... );
 
-int 	Dreply(		CDIS cdis,	ctx_t * ctx, 	user_t usr,	DMSG msg );
-int 	Dreplyf(	CDIS cdis,	ctx_t * ctx,	user_t usr,	const char * format, ... );
-
-int		Dsend_embed(CDIS cdis,	ctx_t * ctx,				const embed_t * embed );
-
-
-// event-listner-adders -------------------------------------------------------
-void	Donrecv_any(listen_f L);
-void 	Donrecv_rgx(char * regex, listen_f L);
-
-
-// helper functions -----------------------------------------------------------
-char *	find_key(int argc, char * argv[]);
-ctx_t *	makectx(ctx_t * buf, guild_t * guild, chan_t * chan);
-CURL *	ciscord_get_curl_handle(CDIS cdis);
-
-// control functions ----------------------------------------------------------
-char *	Dkey(CDIS cdis, char * buf);
-
-/******************************************************************************
-                                     VARS
- *****************************************************************************/
+// D_series functions =========================================================
+//			func			CDIS	context,		user,		content
+int			D_send(			CDIS D,	ctx_t * ctx,				DMSG msg );
+int			D_sendf(		CDIS D,	ctx_t * ctx,				const char* format, ... );
+int 		D_reply(		CDIS D,	ctx_t * ctx,	user_t usr,	DMSG msg );
+int 		D_replyf(		CDIS D,	ctx_t * ctx,	user_t usr,	const char * format, ... );
+int			D_send_embed(	CDIS D,	ctx_t * ctx,				const embed_t * embed );
+// event-listner-adders
+void		D_onrecv_any(	CDIS D,	listen_f L);
+void 		D_onrecv_rgx(	CDIS D, const char * regex, listen_f L);
+void		D_onrecv_sls(	CDIS D, listen_f L);
+// control functions
+char *		D_key(			CDIS D, char * key);
+// finders
+guild_t *	D_get_guild(	CDIS D,	guild_t * buf,	const char * id);
+chan_t *	D_get_chan(		CDIS D,	chan_t * buf,	const char * name);
 
 
-extern listen_f * LISTENERS[CDIS_MAX_LISTEN];
 
 
 
 #endif // ifndef __CISCORD_H__
+
+// vim: syntax=c ts=4

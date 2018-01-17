@@ -1,6 +1,6 @@
 .PHONY: dev build clean
 
-OBJS = helpers.o log.o control.o find.o send.o recv.o init.o exbot.o
+OBJS = 
 
 CURLLINK = -L/usr/lib/x86_64-linux-gnu -lcurl
 LDFLAGS = $(CURLLINK) -ljsmn

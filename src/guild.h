@@ -2,27 +2,41 @@
 #define __CISCORD_GUILD_H__
 
 typedef struct {
-	const char * name;
-	const char * icon;
-	const char * splash;
-	const char * region;
-	const char * afk_timeout;
-
 	SNOWFLAKE id;
-	SNOWFLAKE afk_chan;
-	SNOWFLAKE owner_id;
-	SNOWFLAKE embed_channel_id;
-	
-	PERMISSIONS permissions;
-	ROLE * roles;
-	
+	const char * name;
+	SNOWFLAKE guild_id;
+	const char * icon;
 	bool owner;
+	SNOWFLAKE owner;
+	Dpermissions_t permissions;
+	const char * region;
+	SNOWFLAKE afk_channel_id;
+	int afk_timeout;
 	bool embed_enabled;
-	bool default_message_notifications;
-	
+	SNOWFLAKE embed_channel_id;
 	int verification_level;
-} guild_t;
-
-#define GUILD guild_t
+	int default_message_notifications;
+	int explicit_content_filter;
+	Drole_t * roles;
+	DEMOJI * emojis[50];
+	int mfa_level;
+	SNOWFLAKE application_id;
+	bool widget_enabled;
+	SNOWFLAKE widget_channel_id;
+	SNOWFLAKE system_channel_id;
+	
+	// only in GUILD_CREATE events:
+	time_t joined_at;
+	bool large;
+	bool unavailable;
+	int member_count;
+	Dvoicestate_t voice_states;
+	Dguildmember_t * members;
+	Dchan_t channels;
+	Dpresence_t presences;
+	
+	// extra feilds (array lengths, etc)
+	int Nroles, Nemojis, Nchannels, Nmembers;
+} ld_guild_t;
 
 #endif

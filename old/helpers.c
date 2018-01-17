@@ -19,7 +19,7 @@ char * find_key(int argc, char * argv[])
 			continue;
 		}
 		if(next_is_key == 1){
-			cdis_log_info("Key: \e[1m%s\e[0m\n", argv[i]);
+			disC_log_info("Key: \e[1m%s\e[0m\n", argv[i]);
 			return argv[i];
 		}
 	}
@@ -30,7 +30,7 @@ char * find_key(int argc, char * argv[])
 	
 	if(pipe == NULL){
 		// couldn't open :(
-		cdis_log_warn("Failed to open pipe to search for key file.  :(\n");
+		disC_log_warn("Failed to open pipe to search for key file.  :(\n");
 		pclose(pipe);
 		return NULL;
 	}
@@ -40,24 +40,24 @@ char * find_key(int argc, char * argv[])
 	pclose(pipe);
 	
 	if(access(fname,F_OK) == -1){
-		cdis_log_warn("No keyfile found.\n");
+		disC_log_warn("No keyfile found.\n");
 		return NULL;
 	}
 
 	if(access(fname,R_OK) == -1){
-		cdis_log_warn("Couldn't open \e[4m%s\e[0m for reading, permissions error.\n",fname);
-		cdis_log_warn("Try \e[1mchmod +r %s\e[0m\n",fname);
+		disC_log_warn("Couldn't open \e[4m%s\e[0m for reading, permissions error.\n",fname);
+		disC_log_warn("Try \e[1mchmod +r %s\e[0m\n",fname);
 		return NULL;
 	}
 	
 	FILE * f = fopen(fname, "r");
 
-	cdis_log_info("Keyfile: \e[1m%s\e[0m\n",fname);
+	disC_log_info("Keyfile: \e[1m%s\e[0m\n",fname);
 	
 	
 	if(f == NULL){
-		cdis_log_warn("Failed to open keyfile for reading.\n");
-		cdis_log_warn("Since I checked if you can open it already, this probably means you're out of memory.\n");
+		disC_log_warn("Failed to open keyfile for reading.\n");
+		disC_log_warn("Since I checked if you can open it already, this probably means you're out of memory.\n");
 		return NULL;
 	}
 	
@@ -65,7 +65,7 @@ char * find_key(int argc, char * argv[])
 	
 	fscanf(f, "%s", key);
 	
-	cdis_log_info("Key: \e[1m%s\e[0m\n",key);
+	disC_log_info("Key: \e[1m%s\e[0m\n",key);
 	return key;
 }
 
@@ -90,11 +90,11 @@ ctx_t *	makectx(ctx_t * buf, guild_t * guild, chan_t * chan){
 		buf = malloc(sizeof(ctx_t));
 		if(buf == NULL){
 			// shit. malloc failed.
-			cdis_log_darn("makectx(NULL, %x, %x): malloc() failed. (%s)",
+			disC_log_darn("makectx(NULL, %x, %x): malloc() failed. (%s)",
 			guild, chan, strerror(errno));
 			return NULL;
 		}
-		cdis_log_warn("makectx(NULL, %x, %x): allocating \e[1mbuf\e[0m for you\n",
+		disC_log_warn("makectx(NULL, %x, %x): allocating \e[1mbuf\e[0m for you\n",
 			guild, chan);
 	}
 	buf->chan = chan;
