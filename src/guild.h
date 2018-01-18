@@ -7,8 +7,8 @@ typedef struct {
 	SNOWFLAKE guild_id;
 	const char * icon;
 	bool owner;
-	SNOWFLAKE owner;
-	Dpermissions_t permissions;
+	SNOWFLAKE ownerid;
+	//Dpermissions_t permissions;
 	const char * region;
 	SNOWFLAKE afk_channel_id;
 	int afk_timeout;
@@ -17,8 +17,8 @@ typedef struct {
 	int verification_level;
 	int default_message_notifications;
 	int explicit_content_filter;
-	Drole_t * roles;
-	DEMOJI * emojis[50];
+	//ld_role_t * roles;
+	//ld_emoji_t emojis[50];
 	int mfa_level;
 	SNOWFLAKE application_id;
 	bool widget_enabled;
@@ -30,10 +30,10 @@ typedef struct {
 	bool large;
 	bool unavailable;
 	int member_count;
-	Dvoicestate_t voice_states;
-	Dguildmember_t * members;
-	Dchan_t channels;
-	Dpresence_t presences;
+	//ld_voicestate_t voice_states;
+	//ld_user_t * members;
+	ld_chan_t channels;
+	//ld_presence_t * presences;
 	
 	// extra feilds (array lengths, etc)
 	int Nroles, Nemojis, Nchannels, Nmembers;
