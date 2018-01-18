@@ -27,13 +27,8 @@ cleanh:
 	sudo rm -rf /usr/include/ciscord/
 
 .ONESHELL:
-$i/:
-	$(MKDIR) -p $@
-	$(MAKE) $(headers)
-
-$i/internal/:
-	$(MKDIR) -p $@
-	$(MAKE) $(internalh)
+$i/: headers/*
+	sudo cp -r headers $i/
 
 /usr/include/ciscord/%.h: src/%.h
 	sudo cp $< $@

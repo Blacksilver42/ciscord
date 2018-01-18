@@ -37,7 +37,7 @@ typedef struct {
 
 ld_chan_t *		ld_chan_blank(ld_chan_t * buf);
 struct tm *		ld_convert_8601(struct tm * buf, char * stamp);
-const char *	D_chan_perform(ld_t ld, SNOWFLAKE id);
+const char *	D_chan_perform(ld_t * ld, SNOWFLAKE id);
 
 
 #endif // ifndef __CISCORD_CHANNEL_H__

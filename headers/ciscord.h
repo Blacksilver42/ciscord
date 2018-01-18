@@ -17,6 +17,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <unistd.h>
+#define _XOPEN_SOURCE //strptime, struct tm
 #include <time.h>
 
 
