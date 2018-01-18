@@ -8,8 +8,8 @@
 #define ROLE SNOWFLAKE
 
 
-typedef char[SNOWFLAKE_LEN+1] snowflake_t;
-//             room for \0 ^
+typedef char snowflake_t[SNOWFLAKE_LEN+1];
+//                         room for \0 ^
 
-
+#define SNOWFLAKE snowflake_t
 #endif

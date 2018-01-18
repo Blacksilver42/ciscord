@@ -1,17 +1,20 @@
 .PHONY: dev build clean
 
-OBJS = log.o
+OBJS = log.o channel.o curl_helpers.o
 
-CURLLINK = -L/usr/lib/x86_64-linux-gnu -lcurl
-LDFLAGS = $(CURLLINK) -ljsmn
-CFLAGS = -Wall 
+CURLLINK = $(shell curl-config --libs)
+LDFLAGS = $(CURLLINK) -L../jsmn -ljsmn
+CFLAGS = -Wall -Wextra -Wpedantic -Werror
 
-build: $(OBJS)
+libciscord.a: $(OBJS)
+	$(AR) rc $@ $^
+	
 
 dev: CFLAGS+=-g
-dev: build
+def: libciscord.a
 
 
 clean:
-	rm -f *.o
+	rm -rf *.o
+	rm -rf *.a
 
