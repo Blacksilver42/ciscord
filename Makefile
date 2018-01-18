@@ -1,25 +1,43 @@
 INCLUDE = /usr/include
-MAKE+= --no-print-directory
 LN=ln -f
+MKDIR= sudo mkdir
 
-includedir = $(INCLUDE)/ciscord
+i = $(INCLUDE)/ciscord
+
+.PHONY: hdrs cleanh
+
+
+headers = $i/exit.h $i/guild.h $i/channel.h $i/simples.h $i/internal.h $i/internal/
+internalh = $i/internal/log.h $i/internal/curl_helpers.h
 
 .PHONY: install include doth
 .ONESHELL: include
 
 
-ciscord.o: doth
-	make -C src
-	cp src/ciscord.o .
+ciscord.a: $i/
+	$(MAKE) -C src
+	cp src/ciscord.a .
 
-doth: src/*.h
-	@if [ `whoami` = root ]; then 
-	mkdir -p $(includedir)
-	$(LN) src/*.h $(includedir)/
-	@else echo "Only root can do that."
-	@#Seriously, you can try; it won't work.
-	@exit 1; fi
+clean: cleano cleanh
+
+cleano:
+	$(MAKE) -C src clean
+
+cleanh:
+	sudo rm -rf /usr/include/ciscord/
+
+.ONESHELL:
+$i/:
+	$(MKDIR) -p $@
+	$(MAKE) $(headers)
+
+$i/internal/:
+	$(MKDIR) -p $@
+	$(MAKE) $(internalh)
+
+/usr/include/ciscord/%.h: src/%.h
+	sudo cp $< $@
 
 jsmn/jsmn.a:
 	git clone http://github.com/zserge/jsmn	
-	make -C jsmn/
+	$(MAKE) -C jsmn/

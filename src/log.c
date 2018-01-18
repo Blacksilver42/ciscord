@@ -12,7 +12,7 @@ extern void ld_log_info(const char * format, ...){
 	va_start(format, ap);
 	fprintf(ld_log_file, "[LD/INFO] ");
 	vfprintf(ld_log_file, ap);
-	va_end ap;
+	va_end(ap);
 }
 
 extern void ld_log_warn(const char * format, ...){
@@ -20,7 +20,7 @@ extern void ld_log_warn(const char * format, ...){
 	va_start(format, ap);
 	fprintf(ld_log_file, "[LD/WARN] ");
 	vfprintf(ld_log_file, ap);
-	va_end ap;
+	va_end(ap);
 }
 
 extern void ld_log_fuck(const char * format, ...){
@@ -28,6 +28,6 @@ extern void ld_log_fuck(const char * format, ...){
 	va_start(format, ap);
 	fprintf(ld_log_file, "[LD/FUCK] ");
 	vfprintf(ld_log_file, ap);
-	va_end ap;
+	va_end(ap);
 }
 
