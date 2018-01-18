@@ -7,7 +7,6 @@ i = $(INCLUDE)/ciscord
 .PHONY: hdrs cleanh
 
 
-headers = $i/ciscord.h $i/ld.h $i/exit.h $i/guild.h $i/channel.h $i/simples.h $i/user.h $i/internal.h $i/internal/
 internalh = $i/internal/log.h $i/internal/curl_helpers.h
 
 .PHONY: install include doth
@@ -26,8 +25,7 @@ cleano:
 cleanh:
 	sudo rm -rf /usr/include/ciscord/
 
-.ONESHELL:
-$i/: headers/*
+$i/: headers/* headers/internal/*
 	sudo cp -r headers $i/
 
 /usr/include/ciscord/%.h: src/%.h
