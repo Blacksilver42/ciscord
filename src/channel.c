@@ -1,11 +1,9 @@
-#include <time.h>
-
 #include <ciscord/ciscord.h>
 
 // Make a shiny blank channel.
 ld_chan_t * ld_chan_make(ld_chan_t * buf){
 	if(buf == NULL){
-		ld_log_warn("ld_chan_blank(%x): Null buf; allocating for you.", buf);
+		ld_log_warn("ld_chan_make(%x): Null buf; allocating for you.", buf);
 		buf = malloc(sizeof(ld_chan_t));
 	}
 	
