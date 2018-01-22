@@ -38,16 +38,22 @@ char * D_chan_perform(ld_t * ld, SNOWFLAKE id){
 	CURL * handle = ld_get_curl_handle(ld);
 	
 	char url[256];
-	sprintf(url, "%s/channels/%s/", ld->base_url, id);
-	ld_log_info("D_chan_perform(%x,%x): url: '%s'", ld, &id, url);
+	sprintf(url, "%s/channels/%s", ld->base_url, id);
+	ld_log_info("D_chan_perform(%x,%x): %s\n", ld, &id, url);
+	
+	struct curl_slist *chunk = NULL;
+	chunk = curl_slist_append(chunk, ld->auth_header);
 	
 	curl_easy_setopt(handle, CURLOPT_URL, url);
+	curl_easy_setopt(handle, CURLOPT_HTTPHEADER, chunk);
 	
 	curl_easy_perform(handle);
+	
 	curl_easy_cleanup(handle);
 	
 	return NULL;
 }
+
 
 ld_chan_t * D_chan_get(ld_t * ld, ld_chan_t * buf, SNOWFLAKE id){
 	

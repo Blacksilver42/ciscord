@@ -4,8 +4,8 @@
 ///////////////////////////////////////////////// MACROS
 
 
-#define CDIS_VSTRING "v0.01"
-#define CDIS_VNOTE   "(NON-FUNCTIONAL)"
+#define LD_VSTRING "v0.01"
+#define LD_VNOTE   "(NON-FUNCTIONAL)"
 
 ///////////////////////////////////////////////// <INCLUDES>
 

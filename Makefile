@@ -2,22 +2,27 @@ INCLUDE = /usr/include
 LN=ln -f
 MKDIR= sudo mkdir
 
+CURLLINK = $(shell curl-config --libs)
+
 i = $(INCLUDE)/ciscord
 
 .PHONY: clean cleano cleanh
-.PHONY: install include headers
+.PHONY: install headers dbg
 
 
-ciscord.a: $i/
-	$(MAKE) -C src
+libciscord.a: $i/ src/*.c
+	$(MAKE) -C src CFLAGS=$(CFLAGS)
 	cp src/libciscord.a .
+
+dbg: CFLAGS=-g
+dbg: libciscord.a
 
 headers: $i/
 
 clean: cleano cleanh
 
 test: libciscord.a test.c
-	$(CC) test.c -o test -L. -lciscord $(CFLAGS)
+	$(CC) $(CFLAGS) test.c -o test -L. -lciscord $(CURLLINK)
 
 
 $i/: headers/*.h headers/internal/*.h

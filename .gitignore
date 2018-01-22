@@ -3,3 +3,5 @@ exbot
 key
 jsmn/
 libciscord.a
+test
+test.c
