@@ -3,6 +3,6 @@
 
 #include <ciscord/ciscord.h>
 
-CURL * ld_get_curl_handle(ld_t ld);
+CURL * ld_get_curl_handle(ld_t * ld);
 
 #endif

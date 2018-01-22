@@ -4,7 +4,7 @@ OBJS = log.o channel.o curl_helpers.o
 
 CURLLINK = $(shell curl-config --libs)
 LDFLAGS = $(CURLLINK) -L../jsmn -ljsmn
-CFLAGS = -Wall -Wextra -Wpedantic -Werror -fmax-errors=1
+CFLAGS = -Wall -Wextra -Wpedantic
 
 libciscord.a: $(OBJS)
 	$(AR) rc $@ $^
@@ -18,3 +18,4 @@ clean:
 	rm -rf *.o
 	rm -rf *.a
 
+channel.c: curl_helpers.c

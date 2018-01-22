@@ -4,33 +4,37 @@ MKDIR= sudo mkdir
 
 i = $(INCLUDE)/ciscord
 
-.PHONY: hdrs cleanh
-
-
-internalh = $i/internal/log.h $i/internal/curl_helpers.h
-
-.PHONY: install include doth
-.ONESHELL: include
+.PHONY: clean cleano cleanh
+.PHONY: install include headers
 
 
 ciscord.a: $i/
 	$(MAKE) -C src
-	cp src/ciscord.a .
+	cp src/libciscord.a .
+
+headers: $i/
 
 clean: cleano cleanh
 
-cleano:
-	$(MAKE) -C src clean
+test: libciscord.a test.c
+	$(CC) test.c -o test -L. -lciscord $(CFLAGS)
 
-cleanh:
-	sudo rm -rf /usr/include/ciscord/
 
-$i/: headers/* headers/internal/*
+$i/: headers/*.h headers/internal/*.h
 	sudo cp -r headers $i/
 
-/usr/include/ciscord/%.h: src/%.h
-	sudo cp $< $@
 
 jsmn/jsmn.a:
 	git clone http://github.com/zserge/jsmn	
 	$(MAKE) -C jsmn/
+
+$i/ciscord/%.h: headers/%.h 
+	sudo cp $< $@
+
+
+cleano:
+	@$(MAKE) -C src clean
+
+cleanh:
+	sudo rm -rf /usr/include/ciscord/
+

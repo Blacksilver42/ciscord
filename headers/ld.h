@@ -7,6 +7,7 @@ typedef struct {
 	char * token;
 	char * user_agent;
 	char * auth_header;
+	char * base_url;
 } ld_t;
 
 #endif
